@@ -1,0 +1,49 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.draw_canvas {
+    margin: 0;
+    padding: 0;
+    z-index: 10;
+}
+
+.hidden {
+    display: none;
+}
+
+.rollover_area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.rollover_area--canvas {
+    opacity: 0;
+}
+
+.rollover_area--image {
+    opacity: 0.4;
+}
+
+/* #chooseOptions {
+    display: ;
+} */
+.choice-color-item {
+    text-decoration: none;
+    list-style: none;
+    width: 100px;
+    height: 100px;
+    border-radius: 3px;
+    margin: 5px;
+    display: inline-block;
+}
+
+.choice-color-item img {
+    width: 100px;
+    height: 100px;
+} 
+
+
