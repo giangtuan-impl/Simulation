@@ -7,26 +7,37 @@
     <link rel="stylesheet" type="text/css" href="style.css" />
   </head>
   <body>
-    <img id="mainBg" src="simData/in_1_6_x.png" alt="" class="hidden" />
-    <img id="crEl" src="images/kitchen_e/c1_efi.png" alt="" class="hidden" />
-    <img
-      id="mainImage_canvas_rollover"
-      src="simData/in_r.png"
-      alt=""
-      class="rollover_area rollover_area--image"
-    />
-    <canvas
-      id="main_canvas_rollover"
-      width="1600"
-      height="820"
-      class="rollover_area rollover_area--canvas"
-    ></canvas>
-    <canvas class="draw_canvas" id="canvas" width="1600" height="820"></canvas>
-    <button id="changeCrColor">Change color</button>
+    <div class="simulation">
+      <img
+        id="mainBg"
+        src="images/kitchen_e/in_1_6_x.png"
+        alt=""
+        class="hidden"
+      />
+      <img id="crEl" src="images/kitchen_e/c1_efi.png" alt="" class="hidden" />
+      <img id="iconLoader" src="images/icon_loader.gif" />
 
-    <div class="choice-color">
-      <ul id="choseOption"></ul>
+      <img
+        id="mainImage_canvas_rollover"
+        src="simData/in_r.png"
+        alt=""
+        class="rollover_area rollover_area--image"
+      />
+      <canvas
+        id="main_canvas_rollover"
+        width="1600"
+        height="820"
+        class="rollover_area rollover_area--canvas"
+      ></canvas>
+      <canvas
+        class="draw_canvas"
+        id="canvas"
+        width="1600"
+        height="820"
+      ></canvas>
     </div>
+    <ul id="choseOption"></ul>
+    <!-- <div class="loading-div"></div> -->
   </body>
   <script src="js/jquery-3.4.1.min.js"></script>
   <script src="canvas.js"></script>
