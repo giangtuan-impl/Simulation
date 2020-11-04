@@ -1,4 +1,115 @@
-var countFurniture = 0;
+class Simulation {
+  constructor(context, width, height) {
+    this.context = context;
+    this.width = width;
+    this.height = height;
+    this.countImg = 0;
+    this.listNewImg = [];
+    this.currentImgs = {
+      img: [],
+      imgObj: [],
+      selectedOptions: {},
+    };
+    this.imgChangeFLG = false;
+  }
+
+  insertOption(type, img, order) {
+    this.listNewImg.push({
+      img,
+      type,
+      order,
+    });
+  }
+
+  updateSelectOption(type, img) {
+    this.listNewImg.map((item) => {
+      item["img"] = item["type"] === type ? img : item["img"];
+    });
+
+    this.draw();
+  }
+
+  sortImgByOrder() {
+    // sort by order
+    this.listNewImg.sort(function (a, b) {
+      if (a.order > b.order) return 1;
+      if (a.order < b.order) return -1;
+      return 0;
+    });
+  }
+
+  countAndDraw() {
+    // make sure all image loaded
+    this.countImg++;
+    if (this.countImg == this.listNewImg.length) {
+      this.countImg = 0;
+      this.drawImage();
+    }
+  }
+
+  loadImages() {
+    for (let i = 0; i < this.listNewImg.length; i++) {
+      if (typeof this.currentImgs["img"][i] === "undefined") {
+        this.currentImgs["img"][i] = "";
+      }
+      if (this.currentImgs["img"][i] == this.listNewImg[i]["img"]) {
+        this.countAndDraw();
+      } else {
+        this.imgChangeFLG = true;
+        var image = new Image();
+        image.src = this.listNewImg[i]["img"];
+        this.currentImgs["imgObj"][i] = image;
+        this.currentImgs["img"][i] = this.listNewImg[i]["img"];
+        this.currentImgs["selectedOptions"][
+          this.listNewImg[i]["type"]
+        ] = this.listNewImg[i]["img"];
+        var a = this;
+        image.onload = function () {
+          a.countAndDraw();
+        };
+      }
+    }
+  }
+
+  drawImage() {
+    if (this.imgChangeFLG) {
+      console.log(this.currentImgs);
+      this.context.clearRect(0, 0, this.width, this.height);
+      for (let i = 0; i < this.currentImgs["img"].length; i++) {
+        this.context.drawImage(this.currentImgs["imgObj"][i], 0, 0);
+      }
+    }
+    this.imgChangeFLG = false;
+  }
+
+  draw() {
+    this.sortImgByOrder();
+    this.loadImages();
+  }
+
+  isSelectedOption(type, img) {
+    console.log(this.currentImgs["selectedOptions"]);
+    return this.currentImgs["selectedOptions"][type] == img;
+  }
+
+  getCanvasHexColor(x, y) {
+    var imageColorData = this.context.getImageData(x, y, 1, 1);
+    var r = imageColorData.data[0];
+    var g = imageColorData.data[1];
+    var b = imageColorData.data[2];
+    var a = imageColorData.data[3];
+
+    return (
+      this.convertRgbNumberToHex(r) +
+      this.convertRgbNumberToHex(g) +
+      this.convertRgbNumberToHex(b)
+    );
+  }
+
+  convertRgbNumberToHex(v) {
+    return "" + ("00" + v.toString(16).toLowerCase()).substr(-2);
+  }
+}
 
 var colorDefinitions = {
   ff0000: "c1",
@@ -136,45 +247,60 @@ var furnitureColorOptions = {
   },
 };
 
+function getSimImage(name) {
+  return `simData/${name}.png`;
+}
+
+function getKitchenImage(name) {
+  return `images/kitchen_e/${name}.png`;
+}
+
+function getChoiceImage(name) {
+  return `images/choice/${name}.jpg`;
+}
+
+// var drawCanvas = document.getElementById("canvas");
+var ctxDrawCanvas = document.getElementById("canvas").getContext("2d");
+
+var ctxRollOverCanvas = document
+  .getElementById("main_canvas_rollover")
+  .getContext("2d");
+
+var drawCanvas = new Simulation(ctxDrawCanvas, 1600, 820);
+var rollOverCanvas = new Simulation(ctxRollOverCanvas, 1600, 820);
+var rollOverImage = document.getElementById("mainImage_canvas_rollover");
+
+window.onload = function () {
+  for (var key in colorDefinitions) {
+    rollOverCanvas.insertOption(
+      colorDefinitions[key],
+      getSimImage(colorDefinitions[key]),
+      1
+    );
+  }
+  rollOverCanvas.draw();
+
+  for (let index = 0; index < listDefaultFurniture.length; index++) {
+    var fur = listDefaultFurniture[index];
+    drawCanvas.insertOption(
+      fur["type"],
+      getKitchenImage(fur["imgName"]),
+      fur["order"]
+    );
+  }
+  drawCanvas.draw();
+};
+
 var tscs = {
-  colorDefinitions,
-  listDefaultFurniture,
   furnitureCode: "in",
-  inComingListImgName: [],
-  currentImage: {
-    imgObj: [],
-    imgFileName: [],
-  },
-  imgWidth: 1600,
-  imgHeight: 820,
   lastSelectedOption: {},
   btnActiveFlg: true,
   lastHexColorHover: "",
   lastHexColorClick: "",
 };
 
-var drawCanvas = document.getElementById("canvas");
-var ctxDrawCanvas = drawCanvas.getContext("2d");
-// ctxDrawCanvas.globalCompositeOperation = "destination-over";
-var rollOverCanvas = document.getElementById("main_canvas_rollover");
-var ctxRollOverCanvas = rollOverCanvas.getContext("2d");
-
-var rollOverImage = document.getElementById("mainImage_canvas_rollover");
-
-window.onload = function () {
-  for (var key in colorDefinitions) {
-    draw(ctxRollOverCanvas, `simData/${colorDefinitions[key]}.png`);
-  }
-
-  for (let index = 0; index < listDefaultFurniture.length; index++) {
-    tscs.inComingListImgName.push(listDefaultFurniture[index]);
-  }
-
-  setupData();
-};
-
 $("#main_canvas_rollover").mousemove(function (event) {
-  var hexColor = getCanvasHexColor(ctxRollOverCanvas, event.pageX, event.pageY);
+  var hexColor = rollOverCanvas.getCanvasHexColor(event.pageX, event.pageY);
 
   if (hexColor != tscs.lastHexColorHover) {
     tscs.furnitureCode = colorDefinitions[hexColor] ?? "in";
@@ -183,17 +309,8 @@ $("#main_canvas_rollover").mousemove(function (event) {
   }
 });
 
-function getCanvasHexColor(context, x, y) {
-  var imageColorData = context.getImageData(x, y, 1, 1);
-  var r = imageColorData.data[0];
-  var g = imageColorData.data[1];
-  var b = imageColorData.data[2];
-  var a = imageColorData.data[3];
-
-  return toHex(r) + toHex(g) + toHex(b);
-}
 $("#main_canvas_rollover").click(function (event) {
-  var hexColor = getCanvasHexColor(ctxRollOverCanvas, event.pageX, event.pageY);
+  var hexColor = rollOverCanvas.getCanvasHexColor(event.pageX, event.pageY);
   if (tscs.lastHexColorClick != hexColor) {
     tscs.lastHexColorClick = hexColor;
     generateColorOptions(tscs.furnitureCode);
@@ -220,7 +337,7 @@ $(document).on("click", ".choice-color-item ", function () {
   ) {
     return;
   }
-
+  $("#iconLoader").fadeIn(300);
   tscs.lastSelectedOption = {
     type: furnitureCode,
     id: optionId,
@@ -232,12 +349,12 @@ $(document).on("click", ".choice-color-item ", function () {
     }
   );
 
-  var newOption = {
-    imgName: selectedOption["furnitureImg"],
-    type: furnitureCode,
-  };
   bounceSelect();
-  updateData(newOption);
+  drawCanvas.updateSelectOption(
+    furnitureCode,
+    getKitchenImage(selectedOption["furnitureImg"])
+  );
+  $("#iconLoader").fadeOut(600);
 });
 
 function bounceSelect() {
@@ -245,93 +362,23 @@ function bounceSelect() {
   setTimeout(() => (tscs.btnActiveFlg = true), 1000);
 }
 
-function updateData(newOption) {
-  tscs.inComingListImgName.map((item) => {
-    item["imgName"] =
-      item["type"] === newOption["type"]
-        ? newOption["imgName"]
-        : item["imgName"];
-  });
-
-  setupData();
-}
-
-function setupData(listImg) {
-  $("#iconLoader").fadeIn(300);
-  // sort by order
-  tscs.inComingListImgName.sort(function (a, b) {
-    if (a.order > b.order) return 1;
-    if (a.order < b.order) return -1;
-    return 0;
-  });
-
-  loadImages();
-}
-
-function loadImages() {
-  for (let i = 0; i < tscs.inComingListImgName.length; i++) {
-    if (typeof tscs.currentImage["imgFileName"][i] === "undefined") {
-      tscs.currentImage["imgFileName"][i] = "";
-    }
-    if (
-      tscs.currentImage["imgFileName"][i] ==
-      tscs.inComingListImgName[i]["imgName"]
-    ) {
-      countAndDraw();
-    } else {
-      tscs.imgChangeFLG = true;
-      var image = new Image();
-      image.src = `images/kitchen_e/${tscs.inComingListImgName[i]["imgName"]}.png`;
-      tscs.currentImage["imgObj"][i] = image;
-      image.onload = function () {
-        countAndDraw();
-      };
-    }
-  }
-}
-
-function countAndDraw() {
-  // make sure all image loaded
-  countFurniture++;
-  if (countFurniture == tscs.inComingListImgName.length) {
-    countFurniture = 0;
-    drawImage();
-  }
-}
-
-function drawImage() {
-  if (tscs.imgChangeFLG) {
-    ctxDrawCanvas.clearRect(0, 0, tscs.imgWidth, tscs.imgHeight);
-    for (let i = 0; i < tscs.currentImage["imgFileName"].length; i++) {
-      ctxDrawCanvas.drawImage(tscs.currentImage["imgObj"][i], 0, 0);
-    }
-  }
-  tscs.imgChangeFLG = false;
-  $("#iconLoader").fadeOut(300);
-}
-
 function generateColorOptions(furnitureCode) {
   var furniture = furnitureColorOptions[furnitureCode];
 
   $("#choseOption").empty();
   furniture.options.forEach((o) => {
+    var className = drawCanvas.isSelectedOption(
+      furnitureCode,
+      getKitchenImage(o["furnitureImg"])
+    )
+      ? "selected-choice"
+      : "";
+
     $("#choseOption").append(
       `<li class="choice-color-item" data-option-id="${o["id"]}" data-furniture-code="${furnitureCode}">
-      <img src="images/choice/${o["choiceImg"]}" />
+      <img src="images/choice/${o["choiceImg"]}" class=${className} />
       <span class="choice-description">${o["vnName"]}</span>
       </li>`
     );
   });
-}
-
-function toHex(v) {
-  return "" + ("00" + v.toString(16).toLowerCase()).substr(-2);
-}
-
-function draw(context, src) {
-  var image = new Image();
-  image.onload = function () {
-    context.drawImage(image, 0, 0);
-  };
-  image.src = src;
 }
