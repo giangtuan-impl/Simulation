@@ -1,0 +1,277 @@
+{
+  "width": 1600,
+  "height": 820,
+  "defaultHoverImg": "simData/in_r.png",
+  "backgrounds": [
+    {
+      "name": "in",
+      "color": "#ff00ff",
+      "backgroundImg": "simData/in.png",
+      "hoverImg": "simData/in_r.png",
+      "order": 0
+    },
+    {
+      "name": "kp",
+      "color": "#9900ff",
+      "backgroundImg": "simData/kp.png",
+      "hoverImg": "simData/kp_r.png",
+      "order": 0
+    },
+    {
+      "name": "c1",
+      "color": "#ff0000",
+      "backgroundImg": "simData/c1.png",
+      "hoverImg": "simData/c1_r.png",
+      "order": 1
+    },
+    {
+      "name": "dw",
+      "color": "#00ffff",
+      "backgroundImg": "simData/dw.png",
+      "hoverImg": "simData/dw_r.png",
+      "order": 2
+    },
+    {
+      "name": "ra",
+      "color": "#0000ff",
+      "backgroundImg": "simData/ra.png",
+      "hoverImg": "simData/ra_r.png",
+      "order": 6
+    },
+    {
+      "name": "wt",
+      "color": "#33ff00",
+      "backgroundImg": "simData/wt.png",
+      "hoverImg": "simData/wt_r.png",
+      "order": 2
+    },
+    {
+      "name": "he",
+      "color": "#0099ff",
+      "backgroundImg": "simData/he.png",
+      "hoverImg": "simData/he_r.png",
+      "order": 3
+    },
+    {
+      "name": "si",
+      "color": "#00ff99",
+      "backgroundImg": "simData/si.png",
+      "hoverImg": "simData/si_r.png",
+      "order": 5
+    }
+  ],
+  "items": [
+    {
+      "name": "c1",
+      "order": 2,
+      "defaultOption": {
+        "id": 2,
+        "furnitureImg": "images/kitchen_e/c1_efi.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/c1_ebr.jpg",
+          "furnitureImg": "images/kitchen_e/c1_ebr.png",
+          "vnName": "Nâu"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/c1_efi.jpg",
+          "furnitureImg": "images/kitchen_e/c1_efi.png",
+          "vnName": "Xám"
+        }
+      ]
+    },
+    {
+      "name": "dw",
+      "order": 5,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/dw_esi.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/com_si.jpg",
+          "furnitureImg": "images/kitchen_e/dw_esi.png",
+          "vnName": "Viền xám"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/com_bk.jpg",
+          "furnitureImg": "images/kitchen_e/dw_lbk.png",
+          "vnName": "Viền đen"
+        }
+      ]
+    },
+    {
+      "name": "wt",
+      "order": 2,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/wt_aih_sob_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/wt_aih_sob.jpg",
+          "furnitureImg": "images/kitchen_e/wt_aih_sob_x.png",
+          "vnName": "Trắng"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/wt_sih_ove.jpg",
+          "furnitureImg": "images/kitchen_e/wt_sih_ove_x.png",
+          "vnName": "Đen"
+        }
+      ]
+    },
+    {
+      "name": "ra",
+      "order": 5,
+      "defaultOptionId": 1,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/ra_v2_si_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/wt_aih_sob.jpg",
+          "furnitureImg": "images/kitchen_e/ra_v2_si_x.png",
+          "vnName": "Trắng"
+        }
+      ]
+    },
+    {
+      "name": "he",
+      "order": 4,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/he_gs_cwh.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/in_2_1.jpg",
+          "furnitureImg": "images/kitchen_e/he_gs_cwh.png",
+          "vnName": "Hiện đại"
+        }
+      ]
+    },
+    {
+      "name": "in",
+      "order": 0,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/in_2_1_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/in_2_1.jpg",
+          "furnitureImg": "images/kitchen_e/in_2_1_x.png",
+          "vnName": "Hiện đại"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/in_1_6.jpg",
+          "furnitureImg": "images/kitchen_e/in_1_6_x.png",
+          "vnName": "Thiên nhiên"
+        }
+      ]
+    },
+    {
+      "name": "si",
+      "order": 5,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/si_a_wh.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/si_h_dg.jpg",
+          "furnitureImg": "images/kitchen_e/si_a_wh.png",
+          "vnName": "Trắng"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/si_s_zs.jpg",
+          "furnitureImg": "images/kitchen_e/si_s_zs.png",
+          "vnName": "Chậu nhôm"
+        }
+      ]
+    },
+    {
+      "name": "kp",
+      "order": 0,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/kp_i_egg_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/kp_i_ena.jpg",
+          "furnitureImg": "images/kitchen_e/kp_i_egg_x.png",
+          "vnName": "Trắng"
+        },
+        {
+          "id": 2,
+          "choiceImg": "images/choice/kp_i_pwh.jpg",
+          "furnitureImg": "images/kitchen_e/kp_i_wmw_x.png",
+          "vnName": "Thép"
+        }
+      ]
+    },
+    {
+      "name": "c2",
+      "order": 0,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/c2_ewh_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/kp_i_ena.jpg",
+          "furnitureImg": "images/kitchen_e/c2_ewh_x.png",
+          "vnName": "Trắng"
+        }
+      ]
+    },
+    {
+      "name": "c2",
+      "order": 4,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/c2_ewh_x.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "choiceImg": "images/choice/kp_i_ena.jpg",
+          "furnitureImg": "images/kitchen_e/c2_ewh_x.png",
+          "vnName": "Trắng"
+        }
+      ]
+    },
+    {
+      "name": "iw",
+      "order": 4,
+      "defaultOption": {
+        "id": 1,
+        "furnitureImg": "images/kitchen_e/iw_2_6.png"
+      },
+      "options": [
+        {
+          "id": 1,
+          "furnitureImg": "images/kitchen_e/iw_2_6.png",
+          "vnName": "Trắng"
+        }
+      ]
+    }
+  ]
+}
